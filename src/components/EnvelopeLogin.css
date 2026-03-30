@@ -1,0 +1,226 @@
+.envelope-container {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.envelope-wrapper:hover {
+  transform: translateY(-5px);
+}
+
+.envelope-wrapper.open {
+  cursor: default;
+  transform: translateY(60px); 
+}
+
+.envelope {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-envelope);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Back flap */
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 160px solid var(--color-envelope-flap);
+  border-right: 160px solid var(--color-envelope-flap);
+  border-top: 110px solid transparent;
+  border-bottom: 110px solid var(--color-envelope-flap);
+  border-radius: 8px;
+  z-index: 2;
+}
+
+/* Front body (triangles) */
+.envelope-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+.envelope-body::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-bottom: 110px solid var(--color-envelope);
+  border-radius: 0 0 8px 8px;
+  z-index: 4;
+}
+
+/* Top flap */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-top: 120px solid var(--color-envelope);
+  transform-origin: top;
+  transition: transform 0.6s 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 5;
+  border-radius: 8px 8px 0 0;
+  filter: drop-shadow(0px 5px 5px rgba(0,0,0,0.1));
+}
+
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1; 
+}
+
+/* Wax Seal */
+.wax-seal {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-primary-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 6;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.2), 0 4px 6px rgba(0,0,0,0.1);
+  transition: opacity 0.3s;
+}
+
+.envelope-wrapper.open .wax-seal {
+  opacity: 0;
+}
+
+/* The Letter */
+.envelope-letter {
+  position: absolute;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background: white;
+  z-index: 3;
+  border-radius: 10px;
+  transition: all 0.8s 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+}
+
+.letter-preview {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 20px,
+    #f0f0f0 20px,
+    #f0f0f0 22px
+  );
+  opacity: 0.5;
+}
+
+.envelope-wrapper.open .envelope-letter {
+  transform: translateY(-160px);
+  width: 340px;
+  height: 400px;
+  left: -10px;
+  z-index: 10;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+/* Letter Content */
+.letter-content {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 0.5s 1.2s forwards;
+}
+
+.lock-icon-container {
+  background: rgba(212, 106, 132, 0.1);
+  border-radius: 50%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.letter-content h2 {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.hint-text {
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.error-text {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: -0.5rem;
+  animation: fadeIn 0.2s;
+}
+
+.error-shake {
+  animation: shake 0.4s ease-in-out;
+  border-color: #e74c3c !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+.click-me-text {
+  position: absolute;
+  bottom: -40px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  opacity: 0.8;
+  animation: pulse 2s infinite;
+}
+
+

@@ -143,7 +143,7 @@ I was very nervous when i was typing the whole proposal and i was like ki tum gu
   {
     date: "14th February 2026",
     text: "Our first Valentine together",
-    image: "/images/14feb1.jpeg",
+    image: "/images/14feb.png",
     note: `Humara pura valentine week was so cute we sent flowers chocolates to each other i proposed you ek cute si humari drawing bhi banai thi ekdum pyare pyare moments the saare`
   },
   {
